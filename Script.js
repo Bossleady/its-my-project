@@ -1,85 +1,80 @@
-let todos = JSON.parse(localStorage.getItem('my_todos')) || [];
+const tasks = [];
 
-const todoForm = document.getElementById('todo-form');
-const todoInput = document.getElementById('todo-input');
-const todoList = document.getElementById('todo-list');
-const errorMessage = document.getElementById('error-message');
+  const totalEl = document.getElementById("totalTasks");
+  const completedEl = document.getElementById("completedTasks");
+  const list = document.getElementById("taskList");
+  const emptyText = document.getElementById("emptyText");
+  const canvas = document.getElementById("progressCanvas");
+  const ctx = canvas.getContext("2d");
 
-function addTask(event) {
-    event.preventDefault();
+  function addTask() {
+    const title = taskTitle.value.trim();
+    const desc = taskDesc.value.trim();
 
-    const text = todoInput.value.trim();
-
-    if (text === "") {
-        errorMessage.textContent = "Please enter a task name!";
-        return;
+    if (!title || !desc) {
+      alert("Please fill all fields");
+      return;
     }
 
-    const isDuplicate = todos.some(todo => todo.text.toLowerCase() === text.toLowerCase());
-    if (isDuplicate) {
-        errorMessage.textContent = "This task already exists!";
-        return;
+    if (tasks.some(t => t.title === title)) {
+      alert("Task already exists");
+      return;
     }
 
-    errorMessage.textContent = "";
+    tasks.push({ title, desc, done: false });
+    taskTitle.value = "";
+    taskDesc.value = "";
+    updateUI();
+  }
 
-    const newTodo = {
-        id: Date.now(),
-        text: text,
-        completed: false
-    };
+  function toggleTask(index) {
+    tasks[index].done = !tasks[index].done;
+    updateUI();
+  }
 
-    todos.push(newTodo);
+  function deleteTask(index) {
+    tasks.splice(index, 1);
+    updateUI();
+  }
 
-    saveToStorage();
-    renderTodos();
+  function updateUI() {
+    list.innerHTML = "";
+    emptyText.style.display = tasks.length ? "none" : "block";
 
-    todoForm.reset();
-}
+    const completedCount = tasks.filter(t => t.done).length;
 
-function deleteTask(id) {
-    todos = todos.filter(todo => todo.id !== id);
-    saveToStorage();
-    renderTodos();
-}
+    totalEl.textContent = tasks.length;
+    completedEl.textContent = completedCount;
 
-function toggleComplete(id) {
-    todos = todos.map(todo => {
-        if (todo.id === id) {
-            return { ...todo, completed: !todo.completed };
-        }
-        return todo;
+    tasks.forEach((task, i) => {
+      const li = document.createElement("li");
+      if (task.done) li.classList.add("done");
+
+      li.innerHTML = `
+        <strong>${task.title}</strong><br>
+        <small>${task.desc}</small>
+        <div class="actions">
+          <button class="complete-btn" onclick="toggleTask(${i})">
+            ${task.done ? "Undo" : "Complete"}
+          </button>
+          <button class="delete-btn" onclick="deleteTask(${i})">Delete</button>
+        </div>
+      `;
+      list.appendChild(li);
     });
-    saveToStorage();
-    renderTodos();
-}
 
-function renderTodos() {
-    todoList.innerHTML = "";
+    drawCanvas(completedCount, tasks.length);
+  }
 
-    todos.forEach(todo => {
-        const li = document.createElement('li');
+  function drawCanvas(done, total) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (total === 0) return;
 
-        const span = document.createElement('span');
-        span.textContent = todo.text;
-        span.className = todo.completed ? "todo-text completed" : "todo-text";
-        span.onclick = () => toggleComplete(todo.id);
+    const width = (done / total) * canvas.width;
+    ctx.fillStyle = "#16a34a";
+    ctx.fillRect(0, 0, width, canvas.height);
 
-        const btn = document.createElement('button');
-        btn.textContent = "Delete";
-        btn.className = "delete-btn";
-        btn.onclick = () => deleteTask(todo.id);
-
-        li.appendChild(span);
-        li.appendChild(btn);
-        todoList.appendChild(li);
-    });
-}
-
-function saveToStorage() {
-    localStorage.setItem('my_todos', JSON.stringify(todos));
-}
-
-todoForm.addEventListener('submit', addTask);
-
-renderTodos();
+    ctx.fillStyle = "#374151";
+    ctx.font = "14px Arial";
+    ctx.fillText(`Completed ${done} / ${total}`, 10, 20);
+  }
