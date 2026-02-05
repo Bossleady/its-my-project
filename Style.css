@@ -1,105 +1,147 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f7f6;
-    display: flex;
-    justify-content: center;
-    padding-top: 50px;
-    color: #333;
-}
 
-.app-container {
-    background: white;
-    width: 400px;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
 
-h1 {
-    margin-bottom: 5px;
-    color: #2c3e50;
-}
+    body {
+      background: #f3f4f6;
+      padding: 40px 0;
+    }
 
-p {
-    font-size: 0.9em;
-    color: #7f8c8d;
-    margin-bottom: 20px;
-}
+    .card {
+      max-width: 520px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
 
-.input-area {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 5px;
-}
+    h1 {
+      text-align: center;
+      margin-bottom: 6px;
+      font-size: 28px;
+    }
 
-input[type="text"] {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
+    .subtitle {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 24px;
+    }
 
-button#add-btn {
-    padding: 10px 15px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+    .stats {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
 
-button#add-btn:hover {
-    background-color: #2980b9;
-}
+    .stat-box {
+      flex: 1;
+      padding: 18px;
+      border-radius: 14px;
+      text-align: center;
+      font-weight: 600;
+    }
 
-.error {
-    color: #e74c3c;
-    font-size: 0.8em;
-    min-height: 1.2em;
-    margin-top: 5px;
-}
+    .total {
+      background: #eff6ff;
+      border: 2px solid #bfdbfe;
+      color: #2563eb;
+    }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 20px;
-    text-align: left;
-}
+    .completed {
+      background: #ecfdf5;
+      border: 2px solid #a7f3d0;
+      color: #16a34a;
+    }
 
-li {
-    background: #fff;
-    border-bottom: 1px solid #eee;
-    padding: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    .stat-box span {
+      display: block;
+      margin-top: 6px;
+      font-size: 26px;
+    }
 
-li:last-child {
-    border-bottom: none;
-}
+    h2 {
+      margin-top: 22px;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
 
-.todo-text {
-    cursor: pointer;
-    flex: 1;
-}
+    input, textarea {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      font-size: 15px;
+    }
 
-.todo-text.completed {
-    text-decoration: line-through;
-    color: #95a5a6;
-}
+    button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
 
-.delete-btn {
-    background-color: #ff7675;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 10px;
-}
+    .btn-blue {
+      background: #2563eb;
+      color: white;
+      margin-bottom: 20px;
+    }
 
-.delete-btn:hover {
-    background-color: #d63031;
-}
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    li {
+      background: #f9fafb;
+      padding: 14px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    li.done {
+      background: #d1fae5;
+      text-decoration: line-through;
+    }
+
+    .actions {
+      margin-top: 8px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .actions button {
+      flex: 1;
+      padding: 8px;
+      font-size: 14px;
+      border-radius: 8px;
+    }
+
+    .complete-btn {
+      background: #16a34a;
+      color: white;
+    }
+
+    .delete-btn {
+      background: #ef4444;
+      color: white;
+    }
+
+    canvas {
+      margin-top: 20px;
+      border-radius: 10px;
+      background: #e5e7eb;
+    }
+
+    .empty {
+      text-align: center;
+      color: #6b7280;
+      margin-top: 20px;
+    }
